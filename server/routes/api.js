@@ -18,6 +18,7 @@ router.post('/register',validator.registerSchema, validator.getValidationResult 
 
 
 router.post('/create-post', checkAuth, createPost);
+router.get('/get-my-posts', checkAuth, getMyPosts);
 
 
 

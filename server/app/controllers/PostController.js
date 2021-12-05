@@ -10,13 +10,13 @@ exports.createPost = (req, res) => {
     });
 
     post.save().then(result => {
-        res.status(200).json({post: result})
+        return res.status(200).json({post: result})
     })
 }
 
 exports.getMyPosts = (req, res) => {
-    Post.findById({postedBy: req.profile._id})
+    Post.find({postedBy: req.profile._id}).populate('postedBy')
         .then(posts => {
-            res.status(200).json(posts);
+            return res.status(200).json({data: posts});
         });
 }
