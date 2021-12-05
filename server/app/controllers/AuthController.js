@@ -14,6 +14,7 @@ exports.login = (req, res) => {
                     if(!matched){
                         return res.status(403).json({message: "Invalid email or password!"});
                     }
+                    req.profile = user;
                     const token = jwt.sign({_id: user._id, role: user.role}, process.env.JWT_KEY);
                     user.password = undefined;
                     user.__v = undefined;

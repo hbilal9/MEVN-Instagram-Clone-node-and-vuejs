@@ -1,26 +1,23 @@
 const mongoose = require('mongoose');
-const {ObjectId} = mongoose.Schema.Types.ObjectId;
+const { ObjectId } = mongoose.Schema.Types;
 
 const postSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
-        trim: true,
-        minlength: 5
+        trim: true
     },
     body: {
         type: String,
         required: true,
-        trim: true,
-        minlength: 20,
-        maxlength: 20000
+        trim: true
     },
     img: {
         type: String,
     },
     postedBy: {
         type: ObjectId,
-        required: true
+        ref: "User"
     },
     created_at: {
         type: Date,
