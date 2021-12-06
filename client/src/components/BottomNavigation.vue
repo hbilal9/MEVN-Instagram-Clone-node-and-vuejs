@@ -1,0 +1,40 @@
+<template>
+    <main class="main-bottom-navigation">
+        <div class="bottom-navigation fixed-bottom d-flex justify-content-center mt-4">
+            <router-link class="btn" to="#">
+                <icon class="icon" icon="home"/>
+            </router-link>
+            <router-link class="btn" to="#">
+                <icon class="icon" icon="compass"/>
+            </router-link>
+            <button class="btn" @click="showCreatePostModal">
+                <icon class="icon" icon="plus-square"/>
+            </button>
+            <router-link class="btn" to="#">
+                <icon class="icon" icon="heart"/>
+            </router-link>
+        </div>
+        <create-post ref="createPost"/>
+    </main>
+</template>
+
+<script>
+import CreatePost from '../views/dashboard/user/CreatePost.vue';
+export default {
+  components: { CreatePost },
+    methods: {
+        showCreatePostModal(){
+            this.$refs.createPost.showCreatePostModal();
+        }
+    },
+}
+</script>
+
+<style>
+    .icon{
+        font-size: 2rem;
+    }
+    .bottom-navigation{
+        box-shadow: 4px 0 0 0 rgba(0,0,0,0.16);
+    }
+</style>
