@@ -13,15 +13,19 @@
             <router-link class="btn" to="#">
                 <icon class="icon" icon="heart"/>
             </router-link>
+            <button class="btn ml-4">
+                <avatar :size="36" :src="$store.state.profile.display_photo" :username="$store.state.profile.username"></avatar>
+            </button>
         </div>
         <create-post ref="createPost"/>
     </main>
 </template>
 
 <script>
+import Avatar from 'vue-avatar';
 import CreatePost from '../views/dashboard/user/CreatePost.vue';
 export default {
-  components: { CreatePost },
+  components: { CreatePost, Avatar },
     methods: {
         showCreatePostModal(){
             this.$refs.createPost.showCreatePostModal();
