@@ -36,3 +36,7 @@ export function logout() {
     localStorage.removeItem('access_token')
 }
 
+export function getProfile() {
+    return http().get('get-profile');
+}
+

@@ -8,7 +8,7 @@ const {checkAuth} = require('../app/middlewares/authMiddleware')
 
 // Controllers
 
-const {login, register} = require('../app/controllers/AuthController')
+const {login, register, getProfile} = require('../app/controllers/AuthController')
 const {createPost, getMyPosts, fetchTimelinePosts} = require('../app/controllers/PostController')
 
 // Routes
@@ -16,6 +16,7 @@ const {createPost, getMyPosts, fetchTimelinePosts} = require('../app/controllers
 router.post('/login' , login);
 router.post('/register',validator.registerSchema, validator.getValidationResult , register);
 
+router.get('/get-profile', checkAuth, getProfile);
 
 router.post('/create-post', checkAuth, createPost);
 router.get('/get-my-posts', checkAuth, getMyPosts);

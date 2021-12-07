@@ -14,7 +14,10 @@
                 <icon class="icon" icon="heart"/>
             </router-link>
             <button class="btn ml-4">
-                <avatar :size="36" :src="$store.state.profile.display_photo" :username="$store.state.profile.username"></avatar>
+                <avatar :size="36" v-if="$store.state.isLoggedIn"
+                    :src="$store.state.profile ? $store.state.profile.display_photo : ''"
+                    :username="$store.state.profile ? $store.state.profile.display_photo : 'username'">
+                </avatar>
             </button>
         </div>
         <create-post ref="createPost"/>

@@ -49,3 +49,7 @@ exports.register = (req, res) => {
         }
     );
 }
+
+exports.getProfile = (req, res) => {
+    res.json(req.profile);
+}

@@ -46,7 +46,10 @@
                     </li>
                     <li class="nav-item ml-1">
                         <router-link to="/user/profile">
-                            <avatar :size="36" :src="$store.state.profile.display_photo" :username="$store.state.profile.username"></avatar>
+                            <avatar :size="36" v-if="$store.state.isLoggedIn"
+                                :src="$store.state.profile ? $store.state.profile.display_photo : ''"
+                                :username="$store.state.profile ? $store.state.profile.display_photo : 'username'">
+                            </avatar>
                         </router-link>
                     </li>
                 </ul>
@@ -64,6 +67,7 @@ export default {
         CreatePost,
         Avatar,
     },
+    
     methods: {
         showCreatePostModal(){
             this.$refs.createPost.showCreatePostModal();
