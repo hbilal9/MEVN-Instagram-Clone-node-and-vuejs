@@ -44,13 +44,25 @@
                             <icon class="header-icon" icon="heart"/>
                         </router-link>
                     </li>
-                    <li class="nav-item ml-1">
+                    <!-- <li class="nav-item ml-1">
                         <router-link to="/user/profile">
                             <avatar :size="36" v-if="$store.state.isLoggedIn"
                                 :src="$store.state.profile ? $store.state.profile.display_photo : ''"
                                 :username="$store.state.profile ? $store.state.profile.display_photo : 'username'">
                             </avatar>
                         </router-link>
+                    </li> -->
+                    <li class="nav-item dropdown">
+                        <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                            <avatar :size="36" v-if="$store.state.isLoggedIn"
+                                :src="$store.state.profile ? $store.state.profile.display_photo : ''"
+                                :username="$store.state.profile ? $store.state.profile.display_photo : 'username'">
+                            </avatar>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <router-link class="dropdown-item" to="/user/profile">Profile</router-link>
+                            <a class="dropdown-item" href="javascript: void(0)" @click="logout">Logout</a>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -62,6 +74,7 @@
 <script>
 import Avatar from 'vue-avatar';
 import CreatePost from '../views/dashboard/user/CreatePost.vue';
+import {logout} from '../services/auth_service';
 export default {
     components: {
         CreatePost,
@@ -71,6 +84,10 @@ export default {
     methods: {
         showCreatePostModal(){
             this.$refs.createPost.showCreatePostModal();
+        },
+        logout(){
+            logout();
+            this.$router.push('/login');
         }
     },
 }
