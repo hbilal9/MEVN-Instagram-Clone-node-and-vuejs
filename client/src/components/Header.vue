@@ -20,7 +20,7 @@
                 </form>
                 <ul class="navbar-nav ml-auto mr-5">
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/">
+                        <router-link class="nav-link" :to="`/${$store.state.profile.role}`">
                             <icon class="header-icon" icon="home"/>
                         </router-link>
                     </li>

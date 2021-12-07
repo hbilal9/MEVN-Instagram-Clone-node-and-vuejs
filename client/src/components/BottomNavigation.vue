@@ -1,7 +1,7 @@
 <template>
     <main class="main-bottom-navigation">
         <div class="bottom-navigation fixed-bottom d-flex justify-content-center mt-4">
-            <router-link class="btn" to="#">
+            <router-link class="btn" :to="`/${$store.state.profile.role}`">
                 <icon class="icon" icon="home"/>
             </router-link>
             <router-link class="btn" to="#">
