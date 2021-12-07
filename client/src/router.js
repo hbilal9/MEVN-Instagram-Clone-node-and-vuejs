@@ -38,6 +38,10 @@ const routes = [
       {
         path: '',
         component: () => import('./views/dashboard/user/Dashboard.vue')
+      },
+      {
+        path: 'profile',
+        component: () => import('./views/dashboard/user/Profile.vue')
       }
     ],
     beforeEnter(to, from, next){

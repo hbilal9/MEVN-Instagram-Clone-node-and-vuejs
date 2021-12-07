@@ -10,7 +10,7 @@
                     <div class="d-flex justify-content-between">
                         <span class="card-title mt-2 ml-2 d-flex justify-content-left" v-if="post.postedBy">
                             <avatar :size="36" :src="post.postedBy.display_photo" :username="post.postedBy.username"></avatar>
-                            <span class="username-text mt-2 ml-1">{{ post.postedBy.username}}</span>
+                            <span class="username-text mt-1 ml-2">{{ post.postedBy.username}}</span>
                         </span>
                         <button class="btn">
                             <icon class="header-icon mt-2 mr-2" icon="ellipsis-v"/>
@@ -73,3 +73,9 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+    .username-text{
+        font-weight: 600;
+    }
+</style>
