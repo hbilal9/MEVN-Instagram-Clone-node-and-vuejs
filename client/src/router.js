@@ -44,7 +44,6 @@ const routes = [
       if(isLoggedIn() && getUserRole() === 'user'){
         next();
       }else{
-        console.log(getUserRole());
         next('/404');
       }
     }

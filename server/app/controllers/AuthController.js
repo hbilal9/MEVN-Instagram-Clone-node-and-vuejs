@@ -27,7 +27,7 @@ exports.login = (req, res) => {
 }
 
 exports.register = (req, res) => {
-    const {first_name, last_name, email, password} = req.body
+    const {username, first_name, last_name, email, password} = req.body
     User.findOne({email})
         .then(exists => {
             if(exists){
@@ -35,6 +35,7 @@ exports.register = (req, res) => {
             }else{
                 bcrypt.hash(password, 15).then(hash => {
                     const user = new User({
+                        username,
                         first_name,
                         last_name,
                         email,

@@ -1,10 +1,9 @@
 const Post = require('../models/Post');
 
 exports.createPost = (req, res) => {
-    const {title, body, img} = req.body;
+    const {caption, img} = req.body;
     const post = new Post({
-        title,
-        body,
+        caption,
         img,
         postedBy: req.profile
     });
@@ -22,7 +21,7 @@ exports.getMyPosts = (req, res) => {
 }
 
 exports.fetchTimelinePosts = (req, res) => {
-    Post.find().populate('postedBy', '_id first_name last_name')
+    Post.find().populate('postedBy', '_id username first_name last_name')
         .then(posts => {
             return res.status(200).json(posts);
         });

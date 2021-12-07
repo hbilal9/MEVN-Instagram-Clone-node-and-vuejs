@@ -8,7 +8,7 @@
                     :style="index+1 == timeLinePosts.length ? 'margin-bottom: 5rem' : ''"
                 >
                     <div class="d-flex justify-content-between">
-                        <h5 class="card-title mt-2 ml-2" v-if="post.postedBy">@{{post.postedBy.first_name}}</h5>
+                        <h5 class="card-title mt-2 ml-2" v-if="post.postedBy">@{{post.postedBy.username}}</h5>
                         <button class="btn">
                             <icon class="header-icon mt-2 mr-2" icon="ellipsis-h"/>
                         </button>
@@ -19,8 +19,7 @@
                         alt="Card image cap"
                     >
                     <div class="card-body">
-                        <h3>{{post.title}}</h3>
-                        <p class="card-text">{{post.body}}</p>
+                        <p class="card-text">{{post.caption}}</p>
                         <div class="d-flex justify-content-between">
                             <div class="buttons-group">
                                 <button class="btn"><icon icon="heart"></icon></button>
