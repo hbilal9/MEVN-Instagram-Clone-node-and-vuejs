@@ -1,6 +1,11 @@
 <template>
     <div class="container" style="margin-top:6rem;">
         <div class="row">
+            <div v-if="loading" class="col-12 col-sm-12 col-lg-8 d-flex justify-content-center mb-4 mt-1">
+                <div class="spinner-border text-info" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
             <div class="col-12 col-sm-12 col-lg-8 d-flex justify-content-center main-contents mb-2"
                 v-for="(post, index) in timeLinePosts" :key="index"
             >
@@ -53,10 +58,12 @@ export default {
     },
     data() {
         return {
-            timeLinePosts: []
+            timeLinePosts: [],
+            loading: false,
         }
     },
     mounted() {
+        this.loading = true;
         this.fetchTimelinePosts();
     },
     methods: {
@@ -65,7 +72,9 @@ export default {
                 // eslint-disable-next-line no-unused-vars
                 const response = await postService.fetchTimelinePosts();
                 this.timeLinePosts = response.data;
+                this.loading = false;
             } catch (error) {
+                this.loading = false;
                 console.log(error)
             }
         }
