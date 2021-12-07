@@ -8,9 +8,12 @@
                     :style="index+1 == timeLinePosts.length ? 'margin-bottom: 5rem' : ''"
                 >
                     <div class="d-flex justify-content-between">
-                        <h5 class="card-title mt-2 ml-2" v-if="post.postedBy">@{{post.postedBy.username}}</h5>
+                        <span class="card-title mt-2 ml-2 d-flex justify-content-left" v-if="post.postedBy">
+                            <avatar :size="36" :src="post.postedBy.display_photo" :username="post.postedBy.username"></avatar>
+                            <span class="username-text mt-2 ml-1">{{ post.postedBy.username}}</span>
+                        </span>
                         <button class="btn">
-                            <icon class="header-icon mt-2 mr-2" icon="ellipsis-h"/>
+                            <icon class="header-icon mt-2 mr-2" icon="ellipsis-v"/>
                         </button>
                     </div>
                     <img
@@ -42,9 +45,12 @@
 </template>
 
 <script>
+import Avatar from 'vue-avatar';
 import * as postService from '../../../services/post_service';
 export default {
-    components: {},
+    components: {
+        Avatar,
+    },
     data() {
         return {
             timeLinePosts: []

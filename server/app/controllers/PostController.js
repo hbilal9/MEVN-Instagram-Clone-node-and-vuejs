@@ -21,7 +21,7 @@ exports.getMyPosts = (req, res) => {
 }
 
 exports.fetchTimelinePosts = (req, res) => {
-    Post.find().populate('postedBy', '_id username first_name last_name')
+    Post.find().populate('postedBy', '_id display_photo username first_name last_name')
         .then(posts => {
             return res.status(200).json(posts);
         });
