@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="">
-            <div class="card border border-info" style="width: 22rem">
+            <div class="card border border-info mb-2" style="width: 22rem">
                 <h1 class="text-center mt-3" style="font-family: 'Grand Hotel', cursive;">Instagram</h1>
                 <div class="card-body">
                     <form @submit.prevent="login">
@@ -48,6 +48,9 @@
                         </div>
                     </form>
                 </div>
+            </div>
+            <div class="text-right">
+                <span class="ml-2"> Don't have an account? </span><router-link to="/register">Signup</router-link>
             </div>
         </div>
     </div>
