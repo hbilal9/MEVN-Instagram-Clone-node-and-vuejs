@@ -65,7 +65,6 @@ export default {
                 // eslint-disable-next-line no-unused-vars
                 const response = await postService.fetchTimelinePosts();
                 this.timeLinePosts = response.data;
-                console.log(this.timeLinePosts);
             } catch (error) {
                 console.log(error)
             }

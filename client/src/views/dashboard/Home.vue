@@ -20,7 +20,6 @@ export default {
 			if (auth.isLoggedIn()) {
 				const response = await auth.getProfile();
 				this.$store.dispatch("authenticate", response.data);
-                console.log(this.$store.state.profile)
 			} else {
 				this.$router.push("/login");
 			}
