@@ -20,3 +20,10 @@ exports.getMyPosts = (req, res) => {
             return res.status(200).json({data: posts});
         });
 }
+
+exports.fetchTimelinePosts = (req, res) => {
+    Post.find().populate('postedBy', '_id first_name last_name')
+        .then(posts => {
+            return res.status(200).json(posts);
+        });
+}

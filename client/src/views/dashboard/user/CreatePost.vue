@@ -4,7 +4,7 @@
             hide-footer hide-title
             no-close-on-backdrop
         >
-            <h1>modal</h1>
+            <h1>Coming soon...</h1>
             <div class="text-right">
                 <button class="btn btn-default">Post</button>
             </div>

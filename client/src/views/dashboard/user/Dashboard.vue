@@ -1,82 +1,26 @@
 <template>
     <div class="container" style="margin-top:6rem;">
         <div class="row">
-            <div class="col-12 col-sm-12 col-lg-8 d-flex justify-content-center main-contents">
-                
-                <div class="card" style="width: 25rem;">
+            <div class="col-12 col-sm-12 col-lg-8 d-flex justify-content-center main-contents mb-2"
+                v-for="(post, index) in timeLinePosts" :key="index"
+            >
+                <div class="card" style="width: 25rem;"
+                    :style="index+1 == timeLinePosts.length ? 'margin-bottom: 5rem' : ''"
+                >
                     <div class="d-flex justify-content-between">
-                        <h5 class="card-title mt-2 ml-2">Card title</h5>
+                        <h5 class="card-title mt-2 ml-2" v-if="post.postedBy">@{{post.postedBy.first_name}}</h5>
                         <button class="btn">
                             <icon class="header-icon mt-2 mr-2" icon="ellipsis-h"/>
                         </button>
                     </div>
                     <img
                         class="card-img-top"
-                        src="https://st.depositphotos.com/3203799/4106/i/600/depositphotos_41066325-stock-photo-couple-in-love-silhouette-during.jpg"
+                        :src="post.img"
                         alt="Card image cap"
                     >
                     <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <div class="d-flex justify-content-between">
-                            <div class="buttons-group">
-                                <button class="btn"><icon icon="heart"></icon></button>
-                                <button class="btn"><icon icon="comment"></icon></button>
-                                <button class="btn"><icon icon="paper-plane"></icon></button>
-                            </div>
-                            <div class="save-button">
-                                <icon icon="bookmark"/>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-12 col-lg-8 d-flex justify-content-center main-contents">
-                
-                <div class="card" style="width: 25rem;">
-                    <div class="d-flex justify-content-between">
-                        <h5 class="card-title mt-2 ml-2">Card title</h5>
-                        <button class="btn">
-                            <icon class="header-icon mt-2 mr-2" icon="ellipsis-h"/>
-                        </button>
-                    </div>
-                    <img
-                        class="card-img-top"
-                        src="https://st.depositphotos.com/3203799/4106/i/600/depositphotos_41066325-stock-photo-couple-in-love-silhouette-during.jpg"
-                        alt="Card image cap"
-                    >
-                    <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <div class="d-flex justify-content-between">
-                            <div class="buttons-group">
-                                <button class="btn"><icon icon="heart"></icon></button>
-                                <button class="btn"><icon icon="comment"></icon></button>
-                                <button class="btn"><icon icon="paper-plane"></icon></button>
-                            </div>
-                            <div class="save-button">
-                                <icon icon="bookmark"/>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-12 col-lg-8 mb-5 d-flex justify-content-center main-contents">
-                
-                <div class="card" style="width: 25rem;">
-                    <div class="d-flex justify-content-between">
-                        <h5 class="card-title mt-2 ml-2">Card title</h5>
-                        <button class="btn">
-                            <icon class="header-icon mt-2 mr-2" icon="ellipsis-h"/>
-                        </button>
-                    </div>
-                    <img
-                        class="card-img-top"
-                        src="https://st.depositphotos.com/3203799/4106/i/600/depositphotos_41066325-stock-photo-couple-in-love-silhouette-during.jpg"
-                        alt="Card image cap"
-                    >
-                    <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <h3>{{post.title}}</h3>
+                        <p class="card-text">{{post.body}}</p>
                         <div class="d-flex justify-content-between">
                             <div class="buttons-group">
                                 <button class="btn"><icon icon="heart"></icon></button>
@@ -99,10 +43,28 @@
 </template>
 
 <script>
+import * as postService from '../../../services/post_service';
 export default {
     components: {},
-    mounted() {},
+    data() {
+        return {
+            timeLinePosts: []
+        }
+    },
+    mounted() {
+        this.fetchTimelinePosts();
+    },
     methods: {
+        fetchTimelinePosts: async function (){
+            try {
+                // eslint-disable-next-line no-unused-vars
+                const response = await postService.fetchTimelinePosts();
+                this.timeLinePosts = response.data;
+                console.log(this.timeLinePosts);
+            } catch (error) {
+                console.log(error)
+            }
+        }
     },
 }
 </script>
