@@ -7,7 +7,10 @@
             <b-tabs content-class="mt-3" align="center">
                 <b-tab title="Upload Photo" active>
                     <div class="form-group">
-                        <textarea class="form-control" rows="3" placeholder="Post caption"> </textarea>
+                        <textarea class="form-control"
+                            rows="3" placeholder="Post caption"
+                        >
+                        </textarea>
                     </div>
                     <div class="form-group">
                         <input class="form-control" type="text" placeholder="Image url">
@@ -42,6 +45,10 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-check">
+                            <input type="checkbox" v-model="isUrduFont" @change="updateFont" class="form-check-input" id="checkUrduFonts">
+                            <label class="form-check-label" for="checkUrduFonts">Use Urdu Fonts</label>
+                        </div>
                     
                         <div class="text-right">
                             <button class="btn btn-default">Post</button>
@@ -61,6 +68,7 @@ export default {
             createPostData: {},
             captionBgColor: '#ffffff',
             captionFontColor: '#000000',
+            isUrduFont: false,
             errors: {},
         }
     },
@@ -71,9 +79,17 @@ export default {
                 this.createPostData.captionFontColor = this.captionFontColor;
                 const response = await postService.createPost(this.createPostData);
                 this.$emit('addNewPost', response.data);
+                this.hideCreatePostModal();
                 
             } catch (error) {
                 console.log(error)
+            }
+        },
+        updateFont(){
+            if(this.isUrduFont){
+                this.createPostData.captionFontFamily = 'Noto Nastaliq Urdu';
+            }else{
+                this.createPostData.captionFontFamily = 'sans-serif';
             }
         },
         showCreatePostModal(){

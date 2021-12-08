@@ -16,6 +16,9 @@ const postSchema = new mongoose.Schema({
     captionFontColor: {
         type: String,
     },
+    captionFontFamily: {
+        type: String,
+    },
     postedBy: {
         type: ObjectId,
         ref: "User"

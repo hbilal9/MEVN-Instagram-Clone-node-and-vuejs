@@ -34,7 +34,8 @@
                         <p class="card-text ml-2"
                             :style="{'color': post.captionFontColor,
                                 'font-weight': 600,
-                                'min-height': '4rem'
+                                'min-height': '4rem',
+                                'white-space': 'pre-line'
                             }"
                         >
                             <span :style="post.fontFamily ? {'font-family': post.fontFamily} : {'font-family': 'sans-serif'}">
@@ -96,6 +97,7 @@ export default {
             }
         },
         onNewPost(post){
+            console.log('new post', post)
             this.timeLinePosts.unshift(post);
         }
     },
