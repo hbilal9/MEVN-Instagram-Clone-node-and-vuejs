@@ -10,6 +10,12 @@ const postSchema = new mongoose.Schema({
     img: {
         type: String,
     },
+    captionBgColor: {
+        type: String,
+    },
+    captionFontColor: {
+        type: String,
+    },
     postedBy: {
         type: ObjectId,
         ref: "User"

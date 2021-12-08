@@ -25,9 +25,23 @@
                         class="card-img-top"
                         :src="post.img"
                         alt="Card image cap"
+                        v-if="post.img"
                     >
+                    <div class="card"
+                        v-else
+                        :style="{'background-color': post.captionBgColor}"
+                    >
+                        <p class="card-text ml-2"
+                            :style="{'color': post.captionFontColor,
+                                'font-weight': 600,
+                                'min-height': '4rem'
+                            }"
+                        >
+                            <span :style="post.fontFamily ? {'font-family': post.fontFamily} : {'font-family': 'sans-serif'}">
+                                {{post.caption}} </span>
+                        </p>
+                    </div>
                     <div class="card-body">
-                        <p class="card-text">{{post.caption}}</p>
                         <div class="d-flex justify-content-between">
                             <div class="buttons-group">
                                 <button class="btn"><icon icon="heart"></icon></button>
@@ -46,15 +60,18 @@
                 right sidebar
             </div>
         </div>
+        <create-post @addNewPost="onNewPost"></create-post>
     </div>
 </template>
 
 <script>
 import Avatar from 'vue-avatar';
+import CreatePost from './CreatePost.vue'
 import * as postService from '../../../services/post_service';
 export default {
     components: {
         Avatar,
+        CreatePost,
     },
     data() {
         return {
@@ -77,6 +94,9 @@ export default {
                 this.loading = false;
                 console.log(error)
             }
+        },
+        onNewPost(post){
+            this.timeLinePosts.unshift(post);
         }
     },
 }
