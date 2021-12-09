@@ -29,6 +29,7 @@ exports.fetchTimelinePosts = (req, res) => {
     //         return res.status(200).json(posts);
     //     });
     Post.find().populate('postedBy', '_id display_photo username first_name last_name')
+        .populate('comments.commentBy', '_id username')
         .sort({updated_at : -1})
         .then(posts => {
             return res.status(200).json(posts);
@@ -53,6 +54,23 @@ exports.unlikePost = (req, res) => {
     }, {
         new: true
     }).exec((error, result) => {
+        if(error) res.status.json(error);
+        res.status(200).json(result)
+    });
+}
+
+exports.addComment = (req, res) => {
+    const comment = {
+        commentBy:req.profile._id,
+        comment: req.body.comment
+    };
+    Post.findByIdAndUpdate(req.body.post_id, {
+        $push: {comments: comment}
+    }, {
+        new: true
+    })
+    .populate('comments.commentBy', '_id username')
+    .exec((error, result) => {
         if(error) res.status.json(error);
         res.status(200).json(result)
     });

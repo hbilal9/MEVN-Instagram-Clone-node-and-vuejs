@@ -19,3 +19,7 @@ export function likePost(data) {
 export function unlikePost(data) {
     return http().post('/unlike-post', data);
 }
+
+export function addComment(data) {
+    return http().post('/add-comment', data);
+}

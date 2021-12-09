@@ -64,11 +64,35 @@
                                 <icon icon="bookmark"/>
                             </div>
                         </div>
-                            <div class="d-flex">
-                                <h6>{{post.likes.length}} Likes</h6>
-                                <h6 class="ml-2">{{0}} Comments</h6>
+                        <div class="d-flex">
+                            <h6>{{post.likes.length}} Likes</h6>
+                            <h6 class="ml-2">{{post.comments.length}} Comments</h6>
+                        </div>
+                        <div class="d-flex">
+                            <div class="input-group mt-2">
+                            <input type="text"
+                                class="form-control"
+                                placeholder="Add comments"
+                                v-model="commentData.comment"
+                            >
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary"
+                                        type="button"
+                                        @click="addComment(post)"
+                                    >
+                                        <icon icon="paper-plane"/>
+                                    </button>
+                                </div>
                             </div>
-                        
+                        </div>
+                        <div class="mt-2">
+                            <div class="" v-for="comment in getFirstTwoComments(post)" :key="comment._id">
+                                <strong v-if="comment.commentBy">
+                                    {{comment.commentBy.username}}:
+                                </strong> {{comment.comment}}
+                            </div>
+                            
+                        </div>
                     </div>
                 </div>
             </div>
@@ -89,6 +113,7 @@ export default {
     data() {
         return {
             timeLinePosts: [],
+            commentData: {},
             loading: false,
         }
     },
@@ -135,6 +160,25 @@ export default {
                 this.loading = false;
                 console.log(error)
             }
+        },
+        addComment: async function (post){
+            try {
+                // eslint-disable-next-line no-unused-vars
+                this.commentData.post_id = post._id;
+                const response = await postService.addComment(this.commentData);
+                this.commentData = {};
+                this.timeLinePosts.forEach(post => {
+                    if (post._id == response.data._id) {
+                        return post.comments = response.data.comments;
+                    }
+                })
+            } catch (error) {
+                this.loading = false;
+                console.log(error)
+            }
+        },
+        getFirstTwoComments(post){
+            return post.comments.slice(0, 2);
         },
         onNewPost(post){
             console.log('new post', post)
