@@ -34,3 +34,26 @@ exports.fetchTimelinePosts = (req, res) => {
             return res.status(200).json(posts);
         });
 }
+
+
+exports.likePost = (req, res) => {
+    Post.findByIdAndUpdate(req.body.post_id, {
+        $push: {likes: req.profile._id}
+    }, {
+        new: true
+    }).exec((error, result) => {
+        if(error) res.status.json(error);
+        res.status(200).json(result)
+    });
+}
+
+exports.unlikePost = (req, res) => {
+    Post.findByIdAndUpdate(req.body.post_id, {
+        $pull: {likes: req.profile._id}
+    }, {
+        new: true
+    }).exec((error, result) => {
+        if(error) res.status.json(error);
+        res.status(200).json(result)
+    });
+}

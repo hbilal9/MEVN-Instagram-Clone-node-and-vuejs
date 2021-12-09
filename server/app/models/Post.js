@@ -19,6 +19,10 @@ const postSchema = new mongoose.Schema({
     captionFontFamily: {
         type: String,
     },
+    likes: [{
+        type: ObjectId,
+        ref: "User"
+    }],
     postedBy: {
         type: ObjectId,
         ref: "User"

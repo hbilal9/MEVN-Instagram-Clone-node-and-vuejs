@@ -45,7 +45,18 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div class="buttons-group">
-                                <button class="btn"><icon icon="heart"></icon></button>
+                                <button class="btn"
+                                    @click="unlikePost(post)"
+                                    v-if="post.likes.includes($store.state.profile._id)"
+                                >
+                                    <icon color="#D4390F" :icon="['fas','heart']"></icon>
+                                </button>
+                                <button class="btn"
+                                    @click="likePost(post)"
+                                    v-else
+                                >
+                                    <icon :icon="['far','heart']"></icon>
+                                </button>
                                 <button class="btn"><icon icon="comment"></icon></button>
                                 <button class="btn"><icon icon="paper-plane"></icon></button>
                             </div>
@@ -53,6 +64,10 @@
                                 <icon icon="bookmark"/>
                             </div>
                         </div>
+                            <div class="d-flex">
+                                <h6>{{post.likes.length}} Likes</h6>
+                                <h6 class="ml-2">{{0}} Comments</h6>
+                            </div>
                         
                     </div>
                 </div>
@@ -61,18 +76,15 @@
                 right sidebar
             </div>
         </div>
-        <create-post @addNewPost="onNewPost"></create-post>
     </div>
 </template>
 
 <script>
 import Avatar from 'vue-avatar';
-import CreatePost from './CreatePost.vue'
 import * as postService from '../../../services/post_service';
 export default {
     components: {
         Avatar,
-        CreatePost,
     },
     data() {
         return {
@@ -91,6 +103,34 @@ export default {
                 const response = await postService.fetchTimelinePosts();
                 this.timeLinePosts = response.data;
                 this.loading = false;
+            } catch (error) {
+                this.loading = false;
+                console.log(error)
+            }
+        },
+        likePost: async function (post){
+            try {
+                // eslint-disable-next-line no-unused-vars
+                const response = await postService.likePost({post_id: post._id});
+                this.timeLinePosts.forEach(post => {
+                    if (post._id == response.data._id) {
+                        return post.likes.push(this.$store.state.profile._id)
+                    }
+                })
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        unlikePost: async function (post){
+            try {
+                // eslint-disable-next-line no-unused-vars
+                await postService.unlikePost({post_id: post._id});
+                this.timeLinePosts.find(obj => {
+                    if (obj._id == post._id) {
+                        obj.likes.splice(this.$store.state.profile._id, 1)
+                        return this.timeLinePosts;
+                    }
+                })
             } catch (error) {
                 this.loading = false;
                 console.log(error)

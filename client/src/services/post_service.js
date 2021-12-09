@@ -11,3 +11,11 @@ export function fetchMyPosts() {
 export function createPost(data) {
     return http().post('/create-post', data);
 }
+
+export function likePost(data) {
+    return http().post('/like-post', data);
+}
+
+export function unlikePost(data) {
+    return http().post('/unlike-post', data);
+}
