@@ -178,7 +178,8 @@ export default {
             }
         },
         getFirstTwoComments(post){
-            return post.comments.slice(0, 2);
+            const comments = post.comments
+            return post.comments.slice((comments.length -2), comments.length);
         },
         onNewPost(post){
             console.log('new post', post)
