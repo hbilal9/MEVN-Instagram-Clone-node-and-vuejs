@@ -12,7 +12,11 @@
                 <div class="card" style="width: 25rem;"
                     :style="index+1 == timeLinePosts.length ? 'margin-bottom: 5rem' : ''"
                 >
-                    <div class="d-flex justify-content-between">
+                    <router-link 
+                        :to="`/${post.postedBy.username}`"
+                        class="d-flex justify-content-between"
+                        style="color: black"
+                    >
                         <span class="card-title mt-2 ml-2 d-flex justify-content-left" v-if="post.postedBy">
                             <avatar :size="36" :src="post.postedBy.display_photo" :username="post.postedBy.username"></avatar>
                             <span class="username-text mt-1 ml-2">{{ post.postedBy.username}}</span>
@@ -20,7 +24,7 @@
                         <button class="btn">
                             <icon class="header-icon mt-2 mr-2" icon="ellipsis-v"/>
                         </button>
-                    </div>
+                    </router-link>
                     <img
                         class="card-img-top"
                         :src="post.img"

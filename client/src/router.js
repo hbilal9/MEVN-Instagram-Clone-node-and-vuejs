@@ -39,6 +39,10 @@ const routes = [
         path: '',
         component: () => import('./views/dashboard/user/Dashboard.vue')
       },
+      // {
+      //   path: ':username',
+      //   component: () => import('./views/dashboard/Profile.vue')
+      // },
       {
         path: 'profile',
         component: () => import('./views/dashboard/user/Profile.vue')
@@ -53,6 +57,11 @@ const routes = [
     }
   },
 
+  {
+    path: '/:username',
+    name: 'Profile',
+    component: () => import('./views/dashboard/Profile.vue')
+  },
   {
     path: '/login',
     name: 'Login',

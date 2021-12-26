@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Post = require('../models/Post');
 
 exports.getUserById = (req, res) => {
     User.findById({_id: req.body.id})
@@ -15,4 +16,23 @@ exports.getAllUsers = (req, res) => {
         .then(users => {
             res.status(200).json(users);
         });
+}
+
+exports.getUserByUsername = (req, res) => {
+    User.findOne({username: req.params.username})
+        .then(user => {
+            user.password = undefined;
+            user.__v = undefined;
+            res.status(200).json(user);
+        })
+}
+
+exports.getPostByUsername = (req, res) => {
+    User.findOne({username: req.params.username})
+        .then(user => {
+            Post.find({postedBy: user._id}).populate('postedBy')
+            .then(posts => {
+                return res.status(200).json(posts);
+            });
+        })
 }
