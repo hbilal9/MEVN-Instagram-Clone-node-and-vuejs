@@ -1,5 +1,6 @@
 <template>
     <main>
+        <Header />
         <header>
             <div class="container">
 
@@ -99,15 +100,22 @@
                 </div>
             </div>
         </main>
+        <BottomNavigation/>
     </main>
 </template>
 
 <script>
+import Header from '../../components/Header.vue';
+import BottomNavigation from '../../components/BottomNavigation.vue';
 import { getProfile} from '../../services/auth_service';
 import {
     getProfileByUsername, getPostsByUsername, followUser, unFollowUser
 } from '../../services/user_service';
 export default {
+    components:{
+        Header,
+        BottomNavigation,
+    },
     data() {
         return {
             posts: [],
