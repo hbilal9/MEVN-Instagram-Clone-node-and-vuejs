@@ -15,7 +15,24 @@
 
                         <h1 class="profile-user-name">{{user.username}}</h1>
 
-                        <button class="btn profile-edit-btn">Edit Profile</button>
+                        
+                        <!-- <div class="btn follow-buttons"> -->
+                            <button v-if="user._id == loginUser._id"  class="btn profile-edit-btn">Edit Profile</button>
+                        <!-- </div> -->
+                        <div v-else class="btn follow-buttons">
+                            <button class="btn btn-primary profile-edit-btn"
+                                @click="followUser(user)"
+                                v-if="!user.followers.includes(loginUser._id)"
+                            >
+                                Follow
+                            </button>
+                            <button v-else
+                                class="btn btn-primary profile-edit-btn"
+                                @click="unFollowUser(user)"
+                            >
+                                Unfollow
+                            </button>
+                        </div>
 
                         <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
 
@@ -25,8 +42,8 @@
 
                         <ul>
                             <li><span class="profile-stat-count">{{posts.length}}</span> posts</li>
-                            <li><span class="profile-stat-count">188</span> followers</li>
-                            <li><span class="profile-stat-count">206</span> following</li>
+                            <li><span class="profile-stat-count">{{ user.followers.length }}</span> followers</li>
+                            <li><span class="profile-stat-count">{{ user.following.length }}</span> following</li>
                         </ul>
 
                     </div>
@@ -86,21 +103,32 @@
 </template>
 
 <script>
-// import { fetchMyPosts } from '../../../services/post_service';
-import {getProfileByUsername, getPostsByUsername} from '../../services/user_service';
+import { getProfile} from '../../services/auth_service';
+import {
+    getProfileByUsername, getPostsByUsername, followUser, unFollowUser
+} from '../../services/user_service';
 export default {
     data() {
         return {
             posts: [],
+            loginUser: {},
             user: {}
         }
     },
     mounted() {
-        this.fetchPosts();
         this.fetchUserProfile();
-        console.log(this.$route.params.username)
+        this.getProfile();
+        this.fetchPosts();
     },
     methods: {
+        getProfile: async function(){
+            try{
+                const response = await getProfile();
+                this.loginUser = response.data;
+            }catch(error){
+                console.log(error)
+            }
+        },
         fetchUserProfile: async function(){
             try{
                 const response = await getProfileByUsername(this.$route.params.username);
@@ -117,12 +145,39 @@ export default {
             }catch(error){
                 console.log(error)
             }
+        },
+
+        followUser: async function(user){
+            try{
+                await followUser(user);
+                this.fetchUserProfile()
+                // this.user = response.data;
+            }catch(error){
+                console.log(error)
+            }
+        },
+
+        unFollowUser: async function(user){
+            try{
+                await unFollowUser(user);
+                this.fetchUserProfile();
+                // this.user.followers = this.user.followers.filter(obj => {
+                //     console.log(obj._id, user._id)
+                //     return user._id != obj._id;
+                // })
+            }catch(error){
+                console.log(error)
+            }
         }
     },
 }
 </script>
 
 <style scoped>
+.btn-primary {
+    background-color: rgb(81, 81, 218) !important;
+    color: #ffffff !important;
+}
 img {
     display: block;
 }
@@ -202,6 +257,13 @@ img {
     line-height: 1.8;
     border: 0.1rem solid #dbdbdb;
     border-radius: 0.3rem;
+    padding: 0 2.4rem;
+    margin-left: 2rem;
+}
+
+.follow-buttons{
+    font-size: 1.4rem;
+    line-height: 1.8;
     padding: 0 2.4rem;
     margin-left: 2rem;
 }

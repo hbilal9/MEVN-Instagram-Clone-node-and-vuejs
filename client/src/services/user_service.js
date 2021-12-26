@@ -7,3 +7,11 @@ export function getProfileByUsername(username){
 export function getPostsByUsername(username){
     return http().get(`/get-user-posts/${username}`)
 }
+
+export function followUser(data){
+    return http().post(`/follow-user`, data)
+}
+
+export function unFollowUser(data){
+    return http().post(`/unfollow-user`, data)
+}

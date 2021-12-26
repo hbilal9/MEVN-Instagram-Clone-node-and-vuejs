@@ -36,3 +36,31 @@ exports.getPostByUsername = (req, res) => {
             });
         })
 }
+
+exports.followUser = (req, res) => {
+    User.findByIdAndUpdate(req.body._id, {
+        $push: {followers: req.profile._id}
+    })
+        .then(updated => {
+            User.findByIdAndUpdate(req.profile._id, {
+                $push: {following: req.body._id}
+            })
+            .then(result => {
+                res.json(updated)
+            })
+        })
+}
+
+exports.unFollowUser = (req, res) => {
+    User.findByIdAndUpdate(req.body._id, {
+        $pull: {followers: req.profile._id}
+    })
+        .then(updated => {
+            User.findByIdAndUpdate(req.profile._id, {
+                $pull: {following: req.body._id}
+            })
+            .then(result => {
+                res.json(updated)
+            })
+        })
+}

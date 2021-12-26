@@ -58,11 +58,6 @@ const routes = [
   },
 
   {
-    path: '/:username',
-    name: 'Profile',
-    component: () => import('./views/dashboard/Profile.vue')
-  },
-  {
     path: '/login',
     name: 'Login',
     component: () => import('./views/authentication/Login.vue')
@@ -71,6 +66,11 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: () => import('./views/authentication/Register.vue')
+  },
+  {
+    path: '/:username',
+    name: 'Profile',
+    component: () => import('./views/dashboard/Profile.vue')
   },
   {
     path: '*',
