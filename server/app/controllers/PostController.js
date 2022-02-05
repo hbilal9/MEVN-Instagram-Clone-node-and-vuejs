@@ -25,10 +25,12 @@ exports.getMyPosts = (req, res) => {
 
 exports.fetchTimelinePosts = (req, res) => {
     // Post.find().populate('postedBy', '_id display_photo username first_name last_name')
+    //     .populate('comments.commentBy', '_id username')
+    //     .sort({updated_at : -1})
     //     .then(posts => {
     //         return res.status(200).json(posts);
     //     });
-    Post.find().populate('postedBy', '_id display_photo username first_name last_name')
+    Post.find({postedBy: {$in: [req.profile.following, req.profile._id]}}).populate('postedBy', '_id display_photo username first_name last_name')
         .populate('comments.commentBy', '_id username')
         .sort({updated_at : -1})
         .then(posts => {
