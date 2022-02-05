@@ -44,6 +44,10 @@ const routes = [
       //   component: () => import('./views/dashboard/Profile.vue')
       // },
       {
+        path: 'find',
+        component: () => import('./views/dashboard/user/FindFriend.vue')
+      },
+      {
         path: 'profile',
         component: () => import('./views/dashboard/user/Profile.vue')
       }

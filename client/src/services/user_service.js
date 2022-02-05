@@ -1,5 +1,9 @@
 import {http} from './http_service';
 
+export function getAllUsers(){
+    return http().get(`/get-all-users`)
+}
+
 export function getProfileByUsername(username){
     return http().get(`/get-user-profile/${username}`)
 }

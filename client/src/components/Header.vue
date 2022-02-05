@@ -46,7 +46,7 @@
                     <li class="nav-item"
                         v-if="$store.state.isLoggedIn"
                     >
-                        <router-link class="nav-link" to="/">
+                        <router-link class="nav-link" to="/user/find">
                             <icon class="header-icon" icon="compass"/>
                         </router-link>
                     </li>

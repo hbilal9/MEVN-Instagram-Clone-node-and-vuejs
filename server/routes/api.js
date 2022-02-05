@@ -9,7 +9,9 @@ const {checkAuth} = require('../app/middlewares/authMiddleware')
 // Controllers
 
 const {login, register, getProfile} = require('../app/controllers/AuthController')
-const {getUserByUsername, getPostByUsername, followUser, unFollowUser} = require('../app/controllers/UserController')
+const {
+        getUserByUsername,getAllUsers , getPostByUsername, followUser, unFollowUser
+    } = require('../app/controllers/UserController')
 const {
     createPost, getMyPosts, fetchTimelinePosts, likePost, unlikePost, addComment
 } = require('../app/controllers/PostController')
@@ -19,6 +21,7 @@ const {
 router.post('/login' , login);
 router.post('/register',validator.registerSchema, validator.getValidationResult , register);
 
+router.get('/get-all-users', checkAuth, getAllUsers);
 router.get('/get-profile', checkAuth, getProfile);
 
 router.post('/create-post', checkAuth, createPost);

@@ -12,7 +12,7 @@ exports.getUserById = (req, res) => {
 }
 
 exports.getAllUsers = (req, res) => {
-    User.find()
+    User.find({_id: {$nin: [req.profile.following, req.profile._id]}})
         .then(users => {
             res.status(200).json(users);
         });

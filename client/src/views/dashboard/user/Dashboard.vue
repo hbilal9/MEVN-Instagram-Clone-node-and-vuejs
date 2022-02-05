@@ -100,7 +100,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4 sidebar-contents">
+            <div class="col-4 sidebar-contents d-flex align-items-start">
                 right sidebar
             </div>
         </div>

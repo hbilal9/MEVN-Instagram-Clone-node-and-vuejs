@@ -6,7 +6,7 @@
             >
                 <icon class="icon" icon="home"/>
             </router-link>
-            <router-link class="btn" to="#"
+            <router-link class="btn" to="/user/find"
                 v-if="$store.state.isLoggedIn"
             >
                 <icon class="icon" icon="compass"/>
